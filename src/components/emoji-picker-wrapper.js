@@ -108,7 +108,10 @@ const EmojiPickerWrapper = props => {
   }
 
   /**
+<<<<<<< HEAD
    *
+=======
+>>>>>>> 5693722 (fix: ability to use custom button via buttonRef prop)
    * @param {React.MouseEvent} event
    * @return {'above' | 'below'}
    */
@@ -151,30 +154,8 @@ const EmojiPickerWrapper = props => {
     }
   }, [buttonRef, buttonElement]);
 
-  return customButton ? (
-    (ReactDOM.createPortal(
-      <>
-        <EmojiPickerContainer
-          showPicker={showPicker}
-          theme={theme}
-          handleSelectEmoji={handleSelectEmoji}
-          disableRecent={disableRecent}
-          customEmojis={customEmojis}
-          position={emojiPickerPosition}
-          language={language}
-          set={set}
-        />
-        <EmojiPickerButton
-          showPicker={showPicker}
-          toggleShowPicker={toggleShowPicker}
-          buttonElement={customButton}
-          buttonRef={buttonRef}
-        />
-      </>,
-      customButton
-    ))
-  ) : (
-    (<>
+  return (
+    <>
       <EmojiPickerContainer
         showPicker={showPicker}
         theme={theme}
@@ -183,13 +164,14 @@ const EmojiPickerWrapper = props => {
         customEmojis={customEmojis}
         position={emojiPickerPosition}
         language={language}
-        set={set}
       />
       <EmojiPickerButton
         showPicker={showPicker}
         toggleShowPicker={toggleShowPicker}
+        buttonElement={customButton}
+        buttonRef={buttonRef}
       />
-    </>)
+    </>
   );
 };
 
