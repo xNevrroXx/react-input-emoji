@@ -38,11 +38,13 @@ import { usePollute } from "./hooks/user-pollute";
  * @property {boolean=} cleanOnEnter
  * @property {(text: string) => void=} onEnter
  * @property {string=} placeholder
+ * @property {string=} placeholderColor
+ * @property {string=} color
  * @property {(size: {width: number, height: number}) => void=} onResize
  * @property {() => void=} onClick
  * @property {() => void=} onFocus
  * @property {() => void=} onBlur
- * @property {boolean=} shouldReturn
+ * @property {boolean} shouldReturn
  * @property {number=} maxLength
  * @property {boolean=} keepOpened
  * @property {(event: KeyboardEvent) => void=} onKeyDown
@@ -54,11 +56,13 @@ import { usePollute } from "./hooks/user-pollute";
  * @property {string=} borderColor
  * @property {number=} fontSize
  * @property {string=} fontFamily
+ * @property {string=} background
  * @property {{id: string; name: string; emojis: {id: string; name: string; keywords: string[], skins: {src: string}[]}}[]=} customEmojis
  * @property {import('./types/types').Languages=} language
  * @property {(text: string) => Promise<MetionUser[]>=} searchMention
  * @property {HTMLDivElement=} buttonElement
  * @property {React.MutableRefObject=} buttonRef
+ * @property {boolean} shouldConvertEmojiToImage
  */
 
 /**
@@ -71,7 +75,6 @@ function InputEmoji(props, ref) {
   const {
     onChange,
     onEnter,
-    shouldReturn,
     onResize,
     onClick,
     onFocus,
@@ -92,11 +95,16 @@ function InputEmoji(props, ref) {
     searchMention,
     buttonElement,
     buttonRef,
+    shouldReturn,
+    shouldConvertEmojiToImage,
     // style
     borderRadius,
     borderColor,
     fontSize,
     fontFamily,
+    background,
+    placeholderColor,
+    color,
   } = props;
 
   /** @type {React.MutableRefObject<import('./text-input').Ref | null>} */
@@ -104,7 +112,7 @@ function InputEmoji(props, ref) {
 
   const { addEventListener, listeners } = useEventListeners();
 
-  const { addSanitizeFn, sanitize, sanitizedTextRef } = useSanitize(props.shouldReturn);
+  const { addSanitizeFn, sanitize, sanitizedTextRef } = useSanitize(shouldReturn, shouldConvertEmojiToImage);
 
   const { addPolluteFn, pollute } = usePollute();
 
@@ -135,7 +143,8 @@ function InputEmoji(props, ref) {
     ref,
     setValue,
     textInputRef,
-    emitChange
+    emitChange,
+    shouldConvertEmojiToImage
   });
 
   useEffect(() => {
@@ -317,7 +326,10 @@ function InputEmoji(props, ref) {
           borderRadius,
           borderColor,
           fontSize,
-          fontFamily
+          fontFamily,
+          background,
+          placeholderColor,
+          color
         }}
         tabIndex={tabIndex}
         className={inputClass}
@@ -349,10 +361,13 @@ InputEmojiWithRef.defaultProps = {
   placeholder: "Type a message",
   borderRadius: 21,
   borderColor: "#EAEAEA",
+  color: "black",
   fontSize: 15,
   fontFamily: "sans-serif",
+  background: "white",
   tabIndex: 0,
   shouldReturn: false,
+  shouldConvertEmojiToImage: false,
   customEmojis: [],
   language: undefined,
 };

@@ -149,6 +149,15 @@ export default function App() {
           <tbody>
             <TableTr>
               <TableTd>
+                <Code>background</Code>
+              </TableTd>
+              <TableTd>
+                Defaults to <Code inline>white</Code>. The background color of the
+                input element.
+              </TableTd>
+            </TableTr>
+            <TableTr>
+              <TableTd>
                 <Code>borderColor</Code>
               </TableTd>
               <TableTd>
@@ -185,6 +194,14 @@ export default function App() {
                 <Code>cleanOnEnter</Code>
               </TableTd>
               <TableTd>Clean the input value after the keydown event.</TableTd>
+            </TableTr>
+            <TableTr>
+              <TableTd>
+                <Code>color</Code>
+              </TableTd>
+              <TableTd>
+                Set the color of the input text.
+              </TableTd>
             </TableTr>
             <TableTr>
               <TableTd>
@@ -296,10 +313,26 @@ export default function App() {
             </TableTr>
             <TableTr>
               <TableTd>
+                <Code>placeholderColor</Code>
+              </TableTd>
+              <TableTd>
+                Set the color of the placeholder text.
+              </TableTd>
+            </TableTr>
+            <TableTr>
+              <TableTd>
                 <Code>shouldReturn</Code>
               </TableTd>
               <TableTd>
                 Allows the user to use the <Code inline>Shift + Enter</Code> or <Code inline>Ctrl + Enter</Code> keyboard shortcut to create a new line.
+              </TableTd>
+            </TableTr>
+            <TableTr>
+              <TableTd>
+                <Code>shouldConvertEmojiToImage</Code>
+              </TableTd>
+              <TableTd>
+                Defaults to false. If set to true, emojis will be converted to images in the result.
               </TableTd>
             </TableTr>
             <TableTr>

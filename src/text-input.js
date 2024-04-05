@@ -1,7 +1,7 @@
 // @ts-check
 // vendors
-import React, { useImperativeHandle, forwardRef, useRef } from "react";
-import { handlePasteHtmlAtCaret, moveCaretToEnd } from "./utils/input-event-utils";
+import React, { useImperativeHandle, forwardRef, useRef, useMemo } from "react";
+import { addLineBreak, handlePasteHtmlAtCaret } from "./utils/input-event-utils";
 import { replaceAllTextEmojiToString } from "./utils/emoji-utils";
 
 /**
@@ -18,7 +18,7 @@ import { replaceAllTextEmojiToString } from "./utils/emoji-utils";
  * @property {(event: React.ClipboardEvent) => void} onCopy
  * @property {(event: React.ClipboardEvent) => void} onPaste
  * @property {string} placeholder
- * @property {React.CSSProperties} style
+ * @property {{borderRadius?: number; color?: string; borderColor?: string; fontSize?: number; fontFamily?: string; background: string; placeholderColor?: string;}} style
  * @property {number} tabIndex
  * @property {string} className
  * @property {(html: string) => void} onChange
@@ -110,6 +110,28 @@ const TextInput = (
     }
   }));
 
+  /** @type {React.CSSProperties} */
+  const placeholderStyle = useMemo(() => {
+    const placeholderStyle = {}
+
+    if (style.placeholderColor) {
+      placeholderStyle.color = style.placeholderColor
+    }
+
+    return placeholderStyle
+  }, [style?.placeholderColor])
+
+  /** @type {React.CSSProperties} */
+  const inputStyle = useMemo(() => {
+    const inputStyle = {}
+
+    if (style.color) {
+      inputStyle.color = style.color
+    }
+
+    return inputStyle
+  }, [style?.color])
+
   /** @type {React.MutableRefObject<HTMLDivElement | null>} */
   const placeholderRef = useRef(null);
   /** @type {React.MutableRefObject<HTMLDivElement | null>} */
@@ -119,12 +141,11 @@ const TextInput = (
    *
    * @param {React.KeyboardEvent} event
    */
-  function handleKeyDown(event) {
+  function handleKeyDown(event) {    
     if (event.key === "Enter" && (event.shiftKey === true || event.ctrlKey === true) && props.shouldReturn) {
       event.preventDefault();
       if(textInputRef.current) {
-        textInputRef.current.innerHTML = `${textInputRef.current.innerHTML}</br></br>`
-        moveCaretToEnd(textInputRef)
+        addLineBreak()
         return;
       }
     } 
@@ -174,7 +195,7 @@ const TextInput = (
   return (
     <div className="react-input-emoji--container" style={style}>
       <div className="react-input-emoji--wrapper" onClick={handleClick}>
-        <div ref={placeholderRef} className="react-input-emoji--placeholder">
+        <div ref={placeholderRef} className="react-input-emoji--placeholder" style={placeholderStyle}>
           {placeholder}
         </div>
         <div
@@ -189,6 +210,7 @@ const TextInput = (
           onCopy={props.onCopy}
           onPaste={props.onPaste}
           data-testid="react-input-emoji--input"
+          style={inputStyle}
         />
       </div>
     </div>
