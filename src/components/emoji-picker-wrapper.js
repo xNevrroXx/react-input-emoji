@@ -154,7 +154,7 @@ const EmojiPickerWrapper = props => {
     }
   }, [buttonRef, buttonElement]);
 
-  return customButton ? (
+  return (
     <>
       <EmojiPickerContainer
         showPicker={showPicker}
@@ -173,23 +173,6 @@ const EmojiPickerWrapper = props => {
         buttonRef={buttonRef}
       />
     </>
-  ) : (
-    (<>
-      <EmojiPickerContainer
-        showPicker={showPicker}
-        theme={theme}
-        handleSelectEmoji={handleSelectEmoji}
-        disableRecent={disableRecent}
-        customEmojis={customEmojis}
-        position={emojiPickerPosition}
-        language={language}
-        set={set}
-      />
-      <EmojiPickerButton
-        showPicker={showPicker}
-        toggleShowPicker={toggleShowPicker}
-      />
-    </>)
   );
 };
 
