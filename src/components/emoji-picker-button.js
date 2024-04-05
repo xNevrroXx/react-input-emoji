@@ -36,7 +36,7 @@ function EmojiPickerButton({ showPicker, toggleShowPicker, buttonElement, button
       localButtonRef.current.appendChild(buttonElement?.childNodes[0]);
       setTypeButton("CUSTOM_CONTENT");
     }
-  }, [buttonRef, buttonElement, buttonElement?.childNodes])
+  }, [buttonRef, buttonElement, buttonElement?.childNodes, toggleShowPicker])
 
   return ( typeButton !== "IDLE" && typeButton !== "REF" &&
     <button
