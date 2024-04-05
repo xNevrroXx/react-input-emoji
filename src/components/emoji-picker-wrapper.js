@@ -108,10 +108,6 @@ const EmojiPickerWrapper = props => {
   }
 
   /**
-<<<<<<< HEAD
-   *
-=======
->>>>>>> 5693722 (fix: ability to use custom button via buttonRef prop)
    * @param {React.MouseEvent} event
    * @return {'above' | 'below'}
    */
